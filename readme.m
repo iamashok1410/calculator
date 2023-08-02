@@ -1,25 +1,37 @@
 pipeline {
 	agent any
 	tools {
-    	maven 'my_mvn'
+    	maven 'Maven_Home'
 	}
 	stages {
     	stage("Checkout") {   
         	steps {               	 
-            	git url: 'https://github.com/akshu20791/calculator'          	 
+            	git url: 'https://github.com/iamashok1410/calculator'          	 
            	 
         	}    
     	}
     	stage('Build') {
         	steps {
-        	bat "mvn compile"  	 
+        	sh "mvn compile"  	 
         	}
     	}
    	 
     	stage("Unit test") {          	 
         	steps {  	 
-            	bat "mvn test"          	 
+            	sh "mvn test" 
+                }        	     
        	}
+	stage('Quality Assurance of my project') {
+        	steps {
+        	sh "mvn pmd:pmd"  	 
+        	}
+    	}
+        stage('my package of my project') {
+        	steps {
+        	sh "mvn package"  	 
+        	}
+    	}
+
 }
 }
-}
+
